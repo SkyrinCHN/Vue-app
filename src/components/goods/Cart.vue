@@ -14,6 +14,7 @@
 							  {{item.name}}
 							<p class='mui-ellipsis'>
                  {{item.price}}
+							</p>
                	<div class="mui-numbox">
 					<button class="mui-btn mui-btn-numbox-minus" type="button" @click="cartSub" :data-id="item.id">-</button>
 					<input class="mui-input-numbox" type="number" :value="item.count"/>
@@ -28,16 +29,24 @@
 					</div>
 				</div>
 				<div class="mui-card-footer">
-           小计:{{getSubTotal}}
+          <span>
+             小计:{{getSubTotal}} 
+          </span>
+          <button class="go-pay">轻松购</button>
         </div>
         </div>
    </div>  
 </template>
 <script>
+import { MessageBox } from 'mint-ui';
   export default {
     created() {
       this.getList();
     },
+    // updated(){
+    //   this.getList();
+    //  return;
+    // },
     data(){
       return {
         list:[]
@@ -48,9 +57,7 @@
         //同步购物车中数量
         //id    购物车id
         //count 商品数量
-        var url = "http://127.0.0.1:3000/";
-        url+="updateCart?id="+id;
-        url+="&count="+count;
+        var url = "http://127.0.0.1:3000/updateCart?id="+id+"&count="+count;
         this.axios.get(url).then(result=>{
             console.log(result);
         });
@@ -60,6 +67,24 @@
         for(var item of this.list){
            if(item.id == id ){
              item.count--;
+             if(item.count <1){
+               MessageBox({
+                 title:'温馨提示',
+                 message:'再减就没了',
+                 showCancelButton: true,
+                 confirmButtonText:'删了',
+                  cancelButtonText:'我再想想',
+               }).then(res=>{
+                 if(res=='confirm'){
+                   var url = "http://127.0.0.1:3000/DeleteProduct?id="+item.id;
+                   this.axios.get(url).then(res=>{console.log(res.data)});
+                   this.getList();
+                   return;
+                 }else{
+                   item.count = 1;
+                 }
+               })
+             }
              //同步数据
              this.updateItemCount(item.id,item.count);
              break;
@@ -85,8 +110,8 @@
         var url = "http://127.0.0.1:3000/";
         url +="getCartList";
         this.axios.get(url).then(result=>{
-          //console.log(result);
-          this.list = result.data.data
+          this.list = result.data.data;
+          console.log(result.data.data);
         })
       },
 
@@ -102,5 +127,11 @@
     }
   }  
 </script>
-<style> 
+<style scoped>
+  .go-pay{
+    width: 150px;
+  }
+  span{
+    margin-left: 20px;
+  }
 </style>

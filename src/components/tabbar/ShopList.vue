@@ -26,7 +26,6 @@
 					</a>
 				</li>
          </ul>
-             <!--商品项目 end-->
 					</div>
 				</div>
 				<div class="mui-card-footer">
@@ -36,9 +35,6 @@
    </div>  
 </template>
 <script>
-   //练习1:创建元素
-   //练习2:发送请求获取购物车列表中数据
-   //练习3:小计
   export default {
     created() {
       this.getList();
@@ -74,10 +70,8 @@
         }
       },
       getList(){
-        var url = "http://127.0.0.1:3000/";
-        url +="getCartList";
+        var url = "http://127.0.0.1:3000/getCartList";
         this.axios.get(url).then(result=>{
-          //console.log(result);
           this.list = result.data.data
         })
       }

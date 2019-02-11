@@ -7,7 +7,6 @@
           </a>
         </mt-swipe-item>
       </mt-swipe>
-
     </div>
 </template>
 <script>
