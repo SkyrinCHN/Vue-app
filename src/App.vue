@@ -1,15 +1,18 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" :class="[show[0]!=true?'top':'app-container']">
     <!-- top -->
     <!-- 第一个: 顶部状态栏 小刘商店 -->
-    <mt-header title="辣椒网" fixed>
-      <router-link to="/" slot="left">
+    <mt-header title="小刘商店" fixed v-if="show[0]">
+      <router-link to="/" slot="left" v-if="left[0]">
         <mt-button icon="back"></mt-button>
         <!-- <mt-button @click="handleClose">关闭</mt-button> -->
       </router-link>
       <!-- <mt-button icon="more" slot="right"></mt-button> -->
     </mt-header>
-    <router-view></router-view>
+    <router-view v-on:isShow="listenMySon" v-on:leftIsShow="leftShow"></router-view>
+
+    
+
     <!-- tabbar -->
     <div id="tabbar">
       <nav class="mui-bar mui-bar-tab">
@@ -33,8 +36,39 @@
         </a>
       </nav>
     </div>
+    <div></div>
   </div>
 </template>
+<script>
+export default {
+  created() {
+    
+  },
+  
+  data() {
+    return {
+      show: [],
+      left: [],
+      
+    };
+  },
+  
+
+  methods: {
+    
+    listenMySon(msg) {
+      // this.show=msg;
+      console.log(this.show);
+      this.$set(this.show, 0, msg);
+    },
+    //头部 返回按钮是否显示
+    leftShow(msg) {
+      this.$set(this.left, 0, msg);
+      console.log("left: " + this.left[0]);
+    }
+  }
+};
+</script>
 
 <style>
 .app-container {
@@ -42,9 +76,13 @@
   padding-bottom: 50px;
   overflow-x: hidden;
 }
-
+.top {
+  padding-top: 0;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+}
 .mui-bar-tab .mui-tab-item-tao.mui-active {
-  color: #007aff;
+  color: #2676ff;
 }
 .mui-bar-tab .mui-tab-item-tao {
   display: table-cell;
@@ -71,4 +109,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
 </style>

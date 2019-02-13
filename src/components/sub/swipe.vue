@@ -1,7 +1,7 @@
 <template>
   <div class="swipe">
-      <mt-swipe :auto="2000">
-        <mt-swipe-item v-for="item in list" :key="item.id">
+      <mt-swipe :auto="2500">
+        <mt-swipe-item v-for="item in list" :key="item.id" class="swipe-item">
           <a href="javascript:;">
             <img :src="item.img_url">
           </a>
@@ -18,6 +18,8 @@ export default {
 }
 </script>
 <style scoped>
-
+.swipe{
+  height: 145px;
+}
 </style>
 

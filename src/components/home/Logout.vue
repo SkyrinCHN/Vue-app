@@ -11,10 +11,13 @@ export default {
   },
   methods:{
     logout(){
-      var url ="http://localhost:3000/logout";
-      this.axios.get(url).then(result=>{
-        Toast(result.data.msg)
-      })
+      // var url ="http://localhost:3000/logout";
+      // this.axios.get(url).then(result=>{
+      //   Toast(result.data.msg)
+      // })
+      sessionStorage.removeItem('name');
+      Toast("退出成功");
+      this.$router.push("/Login");
     }
   }
 }

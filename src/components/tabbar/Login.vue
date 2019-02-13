@@ -1,159 +1,156 @@
 <template>
-  <div>
-    <header class="mui-bar mui-bar-nav">
-      <h1 class="mui-title">登录</h1>
-    </header>
-    <div class="mui-content">
-      <form id="login-form" class="mui-input-group">
-        <div class="mui-input-row">
-          <label>账号</label>
-          <input id="account" type="text" class="mui-input-clear mui-input" placeholder="请输入账号" v-model="name">
-        </div>
-        <div class="mui-input-row">
-          <label>密码</label>
-          <input
-            id="password"
-            type="password"
-            class="mui-input-clear mui-input"
-            placeholder="请输入密码"
-            v-model="pwd"
-          >
-        </div>
-      </form>
-      <form class="mui-input-group">
-        <ul class="mui-table-view mui-table-view-chevron">
-          <li class="mui-table-view-cell">自动登录
-            <div id="autoLogin" class="mui-switch">
-              <div class="mui-switch-handle"></div>
-            </div>
-          </li>
-        </ul>
-      </form>
-      <div class="mui-content-padded">
-        <button id="login" type="button" class="mui-btn mui-btn-block mui-btn-primary" @click.prevent="login">登录</button>
-        <div class="link-area">
-          <router-link id="reg" to="/Register">注册账号</router-link>
-          <span class="spliter">|</span>
-          <a id="forgetPassword">忘记密码</a>
-        </div>
+  <div class="login">
+    <div class="title">
+      <h2>登录</h2>
+      <span>-or-</span>
+      <router-link to="/Register" class="toLogin">注册</router-link>
+    </div>
+    <form>
+      <div>
+        <input type="text" placeholder="用户名或手机" v-model="name">
       </div>
-      <div class="mui-content-padded oauth-area"></div>
+      <div>
+        <input type="password" placeholder="请输入密码" v-model="pwd">
+      </div>
+    </form>
+    <div id="login">
+      <button @click="login">登录</button>
     </div>
   </div>
 </template>
 <script>
-import{Toast} from "mint-ui"
+import { Toast } from "mint-ui";
 export default {
   data() {
     return {
-      name:"",pwd:"",
-    }
+      name: "",
+      pwd: "",
+      bool: false,
+      userName: "",
+    };
   },
-  methods:{
-    login(){
+  created() {
+    this.isShow();
+    // this.isLogin();
+  },
+  methods: {
+    isShow() {
+      this.$emit("isShow", this.bool);
+    },
+    // isLogin() {
+    //   if (this.userName) {
+    //     this.$router.push("/Logout");
+    //   }else{
+    //     this.$router.push("/Login")
+    //   }
+    // },
+    login() {
       var name = this.name;
       var pwd = this.pwd;
       var reg = /^[a-z0-9_]{3,12}$/i;
-      if(!reg.test(name)){
+      if (!reg.test(name)) {
         Toast("用户名不符合规则");
         return;
       }
-      if(pwd.trim().length==0){
+      if (pwd.trim().length == 0) {
         Toast("密码不能为空");
         return;
       }
-      var url = "http://127.0.0.1:3000/Login?name="+name+"&pwd="+pwd;
-      this.axios.get(url).then(result=>{
+      var url = "http://127.0.0.1:3000/Login?name=" + name + "&pwd=" + pwd;
+      this.axios.get(url).then(result => {
         console.log(result.data);
-        if(result.data.code==1){
+        if (result.data.code == 1) {
           Toast(result.data.msg);
+          sessionStorage["name"] = this.name;
+          this.userName = sessionStorage["name"];
           this.$router.push("/Home");
-        }else{
+        } else {
           Toast(result.data.msg);
           // Toast("用户名或密码错误");
         }
-      })
-    },
+      });
+    }
   }
 };
 </script>
 <style scoped>
-.area {
-  margin: 20px auto 0px auto;
+.buttom-area {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  margin-left: 100px;
 }
-.mui-bar-nav ~ .mui-content {
-  padding-top: 0px;
+label {
+  color: #135bd6;
+  font-size: 13px;
+  margin-left: -65px;
 }
-.mui-input-group {
-  margin-top: 10px;
+.buttom-area span{
+  margin-right: 82px;
+  color: #135bd6;
+  font-size: 13px;
 }
-
-.mui-input-group:first-child {
-  margin-top: 20px;
+#auto {
+  width: 20px;
 }
-
-.mui-input-group label {
-  width: 22%;
+.login {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #25a2ff;
 }
-
-.mui-input-row label ~ input,
-.mui-input-row label ~ select,
-.mui-input-row label ~ textarea {
-  width: 78%;
+.title {
+  margin-left: 160px;
+  color: aliceblue;
+  padding-top: 100px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial;
 }
-
-.mui-checkbox input[type="checkbox"],
-.mui-radio input[type="radio"] {
-  top: 6px;
+.title h2 {
+  display: inline-block;
+  font-family: "黑体";
 }
-
-.mui-content-padded {
-  margin-top: 35px;
+.title span {
+  display: inline-block;
+  padding-left: 25px;
+  padding-right: 20px;
 }
-
-.mui-btn {
-  padding: 10px;
+.title .toLogin {
+  display: inline-block;
+  border: 1px solid #b8b5b5;
+  font-size: 20px;
+  color: #fff;
 }
 
 .link-area {
-  display: block;
-  margin-top: 25px;
   text-align: center;
 }
-
-.spliter {
-  color: #bbb;
-  padding: 0px 8px;
+form {
+  padding-top: 20px;
 }
-
-.oauth-area {
-  position: absolute;
-  bottom: 20px;
-  left: 0px;
+form div input {
+  width: 80%;
+  color: #a4c5ff;
+  border-radius: 4px;
+}
+form div {
   text-align: center;
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
 }
-
-.oauth-area .oauth-btn {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-size: 30px 30px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  margin: 0px 20px;
-  /*-webkit-filter: grayscale(100%); */
-  border: solid 1px #ddd;
-  border-radius: 25px;
+input::placeholder {
+  color: #a4c5ff;
+  font-size: 10px;
 }
-
-.oauth-area .oauth-btn:active {
-  border: solid 1px #aaa;
+#login {
+  padding-top: 20px;
+  text-align: center;
 }
-
-.oauth-area .oauth-btn.disabled {
-  background-color: #ddd;
+#login > button {
+  background: #135bd6;
+  width: 80%;
+  border-radius: 5px;
+  color: #ffffff;
+  height: 45px;
+  font-size: 20px;
+  border: 0;
 }
 </style>

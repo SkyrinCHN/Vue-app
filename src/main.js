@@ -63,6 +63,30 @@ Vue.filter("datetimeFilter", function (val) {
   // console.log(year);
   return `${year}-${m}-${d} ${h}:${min}`;
 })
+
+// router.beforeEach((to, from, next) => {
+//   console.log(store.state.token)
+//   // to: Route: 即将要进入的目标 路由对象
+//   // from: Route: 当前导航正要离开的路由
+//   // next: Function: 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
+//   const route = ['index', 'list'];
+//   let isLogin = store.state.token;  // 是否登录
+//   // 未登录状态；当路由到route指定页时，跳转至login
+//   if (route.indexOf(to.name) >= 0) {
+//     if (isLogin == null) {
+//       router.push({ path: "./components/tabbar/Login.vue", });
+//     }
+//   }
+//   // 已登录状态；当路由到login时，跳转至home 
+//   console.log(to.name)
+//   localStorage.setItem('routerName', to.name)
+//   if (to.name === 'login') {
+//     if (isLogin != null) {
+//       router.push({ path: './components/tabbar/Home.vue', });;
+//     }
+//   }
+//   next();
+// });
 new Vue({
   router,
   render: h => h(App),

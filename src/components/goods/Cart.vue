@@ -41,15 +41,18 @@
 import { MessageBox } from 'mint-ui';
   export default {
     created() {
-      this.getList();
+      this.getList();  
+      this.isShow();
+      this.leftIsShow();
     },
     // updated(){
     //   this.getList();
-    //  return;
     // },
     data(){
       return {
-        list:[]
+        list:[],
+        bool:true,
+        left:true,
       }
     },
     methods:{
@@ -62,6 +65,12 @@ import { MessageBox } from 'mint-ui';
             console.log(result);
         });
       },
+      isShow(){
+        this.$emit('isShow',this.bool)
+      },
+      leftIsShow(){
+      this.$emit('leftIsShow',this.left);
+    },
       cartSub(e){
         var id = e.target.dataset.id;
         for(var item of this.list){
@@ -110,7 +119,8 @@ import { MessageBox } from 'mint-ui';
         var url = "http://127.0.0.1:3000/";
         url +="getCartList";
         this.axios.get(url).then(result=>{
-          this.list = result.data.data;
+          // this.$set(this.list,0, result.data.data[0]);
+          this.list= result.data.data;
           console.log(result.data.data);
         })
       },

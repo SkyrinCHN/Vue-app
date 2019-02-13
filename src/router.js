@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloContainer from "./components/HelloWorld.vue"
 import Home from "./components/tabbar/Home.vue"
 import NewsList from "./components/home/NewsList.vue"
 import test01 from "./components/test/test01.vue"
@@ -13,6 +12,7 @@ import Login from "./components/tabbar/Login.vue"
 import ShopList from "./components/tabbar/ShopList.vue"
 import Logout from "./components/home/Logout.vue"
 import Cart from './components/goods/Cart.vue'
+import User from './components/tabbar/User.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -30,5 +30,6 @@ export default new Router({
     { path: "/GoodsList", component: GoodsList },
     { path: "/GoodsInfo/:id", component: GoodsInfo },
     { path: "/Register", component: Register },
+    {path:"/User",component:User},
   ]
 })

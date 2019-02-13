@@ -22,7 +22,7 @@
 <script>
 export default {
   data() {
-    return { list: [], pageIndex: 0, pageCount: 1, pageSize: 6 };
+    return { list: [], pageIndex: 0, pageCount: 1, pageSize: 6,left:true };
   },
   methods: {
     jumpDetails(e){
@@ -30,6 +30,9 @@ export default {
       var id = e.target.dataset.id;
       console.log(id);
       this.$router.push("/GoodsInfo/"+id);
+    },
+    leftIsShow(){
+      this.$emit('leftIsShow',this.left);
     },
     getMore() {
       this.pageIndex++;
@@ -46,6 +49,7 @@ export default {
   },
   created() {
     this.getMore();
+    this.leftIsShow();
   }
 };
 </script>

@@ -25,7 +25,7 @@
 <script>
 export default {
   data() {
-    return { list: [], pageIndex: 0, pageSize: "", pageCount: 1 };
+    return { list: [], pageIndex: 0, pageSize: "", pageCount: 1,left:true };
   },
   methods: {
     getNews() {
@@ -43,10 +43,14 @@ export default {
         this.pageCount = result.data.pageCount;
         // console.log(this.list[0].title);
       });
+    },
+    leftIsShow(){
+      this.$emit('leftIsShow',this.left);
     }
   },
   created() {
     this.getNews();
+    this.leftIsShow();
   }
 };
 </script>
