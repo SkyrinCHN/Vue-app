@@ -15,25 +15,25 @@
 
     <!-- tabbar -->
     <div id="tabbar">
-      <nav class="mui-bar mui-bar-tab">
-        <router-link class="mui-tab-item mui-active" to="/home">
-          <span class="mui-icon mui-icon-home"></span>
-          <span class="mui-tab-label">首页</span>
+      <nav class="mui-bar mui-bar-tab" >
+        <router-link  class="mui-tab-item "  :to="item.naviTo" v-for="(item,index) in list" @click="getClass(index)" :class="{'mui-active':index==number}"
+        >
+          <span :class="item.span1" ></span>
+          <span :class="item.span2">{{item.name}}</span>
         </router-link>
-        <router-link class="mui-tab-item" to="/Login">
+        <!-- <router-link class="mui-tab-item " to="/Login">
           <span class="mui-icon mui-icon-contact"></span>
           <span class="mui-tab-label">会员</span>
         </router-link>
         <router-link class="mui-tab-item" to="/Cart">
           <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-            <span class="mui-badge">{{$store.getters.optCartCount}}</span>
           </span>
           <span class="mui-tab-label">购物车</span>
         </router-link>
-        <a class="mui-tab-item" href="#tabbar-with-map">
+        <router-link class="mui-tab-item" to="">
           <span class="mui-icon mui-icon-search"></span>
           <span class="mui-tab-label">搜索</span>
-        </a>
+        </router-link> -->
       </nav>
     </div>
     <div></div>
@@ -41,21 +41,25 @@
 </template>
 <script>
 export default {
-  created() {
-    
-  },
-  
   data() {
     return {
       show: [],
       left: [],
-      
+      list:[
+        {span1:'mui-icon mui-icon-home',span2:'mui-tab-label',name:'首页',naviTo:'/home',routerClass:'mui-tab-item'},
+        {span1:'mui-icon mui-icon-contact',span2:'mui-tab-label',name:'会员',naviTo:'/Login',routerClass:'mui-tab-item'},
+        {span1:'mui-icon mui-icon-extra mui-icon-extra-cart',span2:'mui-tab-label',name:'购物车',naviTo:'/Cart',routerClass:'mui-tab-item'},
+        {span1:'mui-icon mui-icon-search',span2:'mui-tab-label',name:'搜索',naviTo:'',routerClass:'mui-tab-item'},
+      ],
+      number:0
     };
   },
   
 
   methods: {
-    
+    getClass(index){
+      this.number=index
+    },
     listenMySon(msg) {
       // this.show=msg;
       console.log(this.show);
@@ -65,12 +69,12 @@ export default {
     leftShow(msg) {
       this.$set(this.left, 0, msg);
       console.log("left: " + this.left[0]);
-    }
+    },
   }
 };
 </script>
 
-<style>
+<style scoped>
 .app-container {
   padding-top: 40px;
   padding-bottom: 50px;
@@ -80,8 +84,9 @@ export default {
   padding-top: 0;
   padding-bottom: 50px;
   overflow-x: hidden;
+  height: 100%;
 }
-.mui-bar-tab .mui-tab-item-tao.mui-active {
+ .mui-active {
   color: #2676ff;
 }
 .mui-bar-tab .mui-tab-item-tao {
@@ -93,7 +98,6 @@ export default {
   vertical-align: middle;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #929292;
 }
 .mui-bar-tab .mui-tab-item-tao .mui-icon {
   top: 3px;
@@ -109,6 +113,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+#tabbar{
+  height: 50px;
+}
 
 </style>

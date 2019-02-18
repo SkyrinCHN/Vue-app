@@ -15,7 +15,7 @@ export default {
     getNewsInfo(){
      var  id = this.$route.query.id;
       // console.log(this.$route.query.id);
-      var url = "http://127.0.0.1:3000/getNewsInfo?id="+id;
+      var url = "http://skyrinbyliu.applinzi.com/getNewsInfo?id="+id;
       this.axios.get(url).then(result=>{
         this.info = result.data.data;
         console.log(this.info);

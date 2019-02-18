@@ -43,7 +43,7 @@ export default {
   methods: {
     getGoodsInfo() {
       var id = this.id;
-      var url = "http://localhost:3000/getProduct?id="+id;
+      var url = "http://skyrinbyliu.applinzi.com/getProduct?id="+id;
       this.axios.get(url).then(result => {
          this.info= result.data.data
         console.log(this.info);
@@ -59,7 +59,7 @@ export default {
     //     });
     //   },
     getImageList() {
-      var url = "http://localhost:3000/getGoodsInfo";
+      var url = "http://skyrinbyliu.applinzi.com/getGoodsInfo";
       this.axios.get(url).then(result => {
         this.list = result.data;
         console.log(this.list);
@@ -83,7 +83,7 @@ export default {
         uid =uid;
       //发送ajax请求将数据发送到服务器
       var url =
-        "http://127.0.0.1:3000/addCart?pid="+ 
+        "http://skyrinbyliu.applinzi.com/addCart?pid="+ 
         pid +
         "&count=" +
         count +

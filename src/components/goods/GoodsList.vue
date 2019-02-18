@@ -39,7 +39,7 @@ export default {
       var pno = this.pageIndex;
       var ps = this.pageSize;
       var url =
-        "http://localhost:3000/getGoodsList?pno=" + pno + "&pageSize=" + ps;
+        "http://skyrinbyliu.applinzi.com/getGoodsList?pno=" + pno + "&pageSize=" + ps;
       this.axios.get(url).then(result => {
         var rows = this.list.concat(result.data.data);
         this.list = rows;

@@ -41,7 +41,7 @@ export default {
       var pno = this.pageIndex;
       var ps = this.pageSize;
       var url =
-        "http://localhost:3000/getComments?pno=" +
+        "http://skyrinbyliu.applinzi.com/getComments?pno=" +
         pno +
         "&pageSize=" +
         ps +
@@ -64,7 +64,7 @@ export default {
       var nid = this.id;
       if (!content.trim().length == 0) {
         var url =
-          "http://127.0.0.1:3000/addComment?nid=" + nid + "&content=" + content;
+          "http://skyrinbyliu.applinzi.com/addComment?nid=" + nid + "&content=" + content;
         //接收返回数据
         this.axios.get(url).then(result => {
           var output = result.data;

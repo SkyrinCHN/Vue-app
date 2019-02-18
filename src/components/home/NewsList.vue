@@ -11,7 +11,7 @@
           <p class="button">
             <span>{{l.ctime|datetimeFilter}}</span>
             <span>
-              <img src="http://127.0.0.1:3001/img/eye.png" alt>
+              <img src="http://skyrinbyliu.applinzi.com/img/eye.png" alt>
               <span class="point">{{l.point}}</span>
             </span>
           </p>
@@ -32,7 +32,7 @@ export default {
       this.pageIndex++;
       console.log("测试测试");
       var url =
-        "http://127.0.0.1:3000/getNews?pno="+this.pageIndex +"&pageSize=" +this.pageSize;
+        "http://skyrinbyliu.applinzi.com/getNews?pno="+this.pageIndex +"&pageSize=" +this.pageSize;
       this.axios.get(url).then(result => {
         // console.log(result);
         // this.list = result.data.data;

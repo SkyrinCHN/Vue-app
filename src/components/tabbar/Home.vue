@@ -80,14 +80,14 @@ export default {
     getImages() {
       //获取轮播图片 1. 发送ajax请求   2.获取返回数据 保存到pics
       // console.log("测试测试");
-      var url = "http://127.0.0.1:3000/getImages";
+      var url = "http://skyrinbyliu.applinzi.com/getImages";
       this.axios.get(url).then(result => {
         // console.log(result);
         this.list = result.data;
       });
     },
     getNavinfo(){
-      var url = "http://127.0.0.1:3000/getNavInfo";
+      var url = "http://skyrinbyliu.applinzi.com/getNavInfo";
       this.axios.get(url).then(result=>{
         this.navList = result.data;
       })
@@ -100,7 +100,7 @@ export default {
     },
     getNews(){
       var id = this.id;
-      var url = "http://localhost:3000/getNewsList?id="+id;
+      var url = "http://skyrinbyliu.applinzi.com/getNewsList?id="+id;
       this.axios.get(url).then(result=>{
         this.datas=result.data.data;
         console.log(result.data.data);

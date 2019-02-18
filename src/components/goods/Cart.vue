@@ -60,7 +60,7 @@ import { MessageBox } from 'mint-ui';
         //同步购物车中数量
         //id    购物车id
         //count 商品数量
-        var url = "http://127.0.0.1:3000/updateCart?id="+id+"&count="+count;
+        var url = "http://skyrinbyliu.applinzi.com/updateCart?id="+id+"&count="+count;
         this.axios.get(url).then(result=>{
             console.log(result);
         });
@@ -85,7 +85,7 @@ import { MessageBox } from 'mint-ui';
                   cancelButtonText:'我再想想',
                }).then(res=>{
                  if(res=='confirm'){
-                   var url = "http://127.0.0.1:3000/DeleteProduct?id="+item.id;
+                   var url = "http://skyrinbyliu.applinzi.com/DeleteProduct?id="+item.id;
                    this.axios.get(url).then(res=>{console.log(res.data)});
                    this.getList();
                    return;
@@ -116,7 +116,7 @@ import { MessageBox } from 'mint-ui';
         }
       },
       getList(){
-        var url = "http://127.0.0.1:3000/";
+        var url = "http://skyrinbyliu.applinzi.com/";
         url +="getCartList";
         this.axios.get(url).then(result=>{
           // this.$set(this.list,0, result.data.data[0]);

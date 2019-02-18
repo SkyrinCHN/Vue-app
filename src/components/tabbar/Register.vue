@@ -50,7 +50,7 @@ export default {
         });
         return;
       }
-      var url = "http://localhost:3000/existsName?name=" + name;
+      var url = "http://skyrinbyliu.applinzi.com/existsName?name=" + name;
       this.axios.get(url).then(result => {
         if (result.data.code > 0) {
           Toast(result.data.msg);
@@ -78,7 +78,7 @@ export default {
         Toast("两次密码不一致");
         return;
       }
-      var url = "http://localhost:3000/Register?name=" + name + "&pwd=" + pwd;
+      var url = "http://skyrinbyliu.applinzi.com/Register?name=" + name + "&pwd=" + pwd;
       this.axios.get(url).then(result => {
         // console.log(result.data.code);
         if (result.data.code > 0) {

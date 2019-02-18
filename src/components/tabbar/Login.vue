@@ -56,7 +56,7 @@ export default {
         Toast("密码不能为空");
         return;
       }
-      var url = "http://127.0.0.1:3000/Login?name=" + name + "&pwd=" + pwd;
+      var url = "http://skyrinbyliu.applinzi.com/Login?name=" + name + "&pwd=" + pwd;
       this.axios.get(url).then(result => {
         console.log(result.data);
         if (result.data.code == 1) {

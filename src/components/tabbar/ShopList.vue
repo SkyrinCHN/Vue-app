@@ -70,7 +70,7 @@
         }
       },
       getList(){
-        var url = "http://127.0.0.1:3000/getCartList";
+        var url = "http://skyrinbyliu.applinzi.com/getCartList";
         this.axios.get(url).then(result=>{
           this.list = result.data.data
         })
