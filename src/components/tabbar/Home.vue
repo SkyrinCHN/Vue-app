@@ -81,6 +81,7 @@ export default {
       //获取轮播图片 1. 发送ajax请求   2.获取返回数据 保存到pics
       // console.log("测试测试");
       var url = "http://skyrinbyliu.applinzi.com/getImages";
+      // var url = "http://localhost:5050/getImages";
       this.axios.get(url).then(result => {
         // console.log(result);
         this.list = result.data;

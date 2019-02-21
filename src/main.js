@@ -64,6 +64,20 @@ Vue.filter("datetimeFilter", function (val) {
   return `${year}-${m}-${d} ${h}:${min}`;
 })
 
+router.beforeEach((to,from,next)=>{
+  if(to.matched.some(record=>record.meta.requireLogin)){
+    if(sessionStorage['loginInfo']){
+      next();
+    }else{
+      next({
+        path:'/Login'
+      })
+    }
+  }else{
+    next();
+  }
+})
+
 // router.beforeEach((to, from, next) => {
 //   console.log(store.state.token)
 //   // to: Route: 即将要进入的目标 路由对象

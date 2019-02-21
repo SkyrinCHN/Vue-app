@@ -13,23 +13,37 @@ import ShopList from "./components/tabbar/ShopList.vue"
 import Logout from "./components/home/Logout.vue"
 import Cart from './components/goods/Cart.vue'
 import User from './components/tabbar/User.vue'
+import Start from './components/tabbar/Start.vue'
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path:"/Cart",component:Cart},
+    {path:"/Cart",
+    component:Cart,
+    meta:{
+      requireLogin:true
+    }},
     {path:"/Logout",component:Logout},
     {path:"/ShopList",component:ShopList},
     {path:"/Login",component:Login},
-    { path: '/', redirect: "/home" },
+    { path: '/', redirect: "/start" },
     { path: "/home", component: Home },
     { path: "/NewsList", component: NewsList },
     { path: "/test01", component: test01 },
     { path: "/test02/:age", component: test02 },
-    { path: "/NewsInfo", component: NewsInfo },
-    { path: "/GoodsList", component: GoodsList },
-    { path: "/GoodsInfo/:id", component: GoodsInfo },
+    { path: "/NewsInfo", component: NewsInfo,meta:{
+      requireLogin:true
+    } },
+    { path: "/GoodsList", component: GoodsList ,meta:{
+      requireLogin:true
+    }},
+    { path: "/GoodsInfo/:id", component: GoodsInfo,meta:{
+      requireLogin:true
+    } },
     { path: "/Register", component: Register },
-    {path:"/User",component:User},
+    {path:"/User",component:User,meta:{
+      requireLogin:true
+    }},
+    {path:'/start',component:Start}
   ]
 })
