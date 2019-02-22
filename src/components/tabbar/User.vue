@@ -1,24 +1,41 @@
 <template>
   <div class="user">
-    <div class="top">
+    <!-- <div class="top">
       <img :src="cmera_url">
-    </div>
+    </div>-->
     <div class="userInfo">
       <div class="userInfo-Left">
         <img :src="userImage_url">
       </div>
-      <div class="userInfo-Right">
-        <div class="userInfo-Top">
+      <div class="userInfo-Middle">
+        <div class="user-name">
           <p>{{userName}}</p>
         </div>
-        <div class="userInfo-Buttom">
-          <span>微信名:{{wechat}}</span>
-          <img :src="userErweima_url">
-          <span class="arrow">12</span>
+        <div class="wechat">
+          <p>微信名:{{wechat}}</p>
         </div>
       </div>
+      <div class="userInfo-Right">
+        <img :src="userErweima_url">
+        <img :src="toRight_url">
+      </div>
     </div>
-    <div class="userAction"></div>
+    <div class="userAction">
+      <div v-for="(item,index) in list" :key="index" class="items">
+        <div class="userAction-item">
+          <div class="item-pic">
+            <img :src="item.img_url">
+          </div>
+          <div class="item-content">
+            <p>{{item.content}}</p>
+          </div>
+          <div class="item-to">
+            <img :src="toRight_url">
+          </div>
+        </div>
+        <div class="link-top"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -29,25 +46,80 @@ export default {
       userErweima_url: "http://skyrinbyliu.applinzi.com/img/erweima.png",
       userName: "Alice",
       wechat: "Skyrinsina_euro",
-      cmera_url: "http://skyrinbyliu.applinzi.com/img/camera.png"
+      cmera_url: "http://skyrinbyliu.applinzi.com/img/camera.png",
+      toRight_url: "http://skyrinbyliu.applinzi.com/img/right.png",
+      bottomShow: true, //底部是否显示
+      bool: true, //顶部是否显示
+      list: [
+        { img_url: "http://skyrinbyliu.applinzi.com/img/pay.png", content: "支付" },
+        { img_url: "http://skyrinbyliu.applinzi.com/img/like.png", content: "收藏" },
+        { img_url: "http://skyrinbyliu.applinzi.com/img/photo.png", content: "相册" },
+        { img_url: "http://skyrinbyliu.applinzi.com/img/card.png", content: "卡包" },
+        { img_url: "http://skyrinbyliu.applinzi.com/img/biaoqing.png", content: "表情" },
+        { img_url: "http://skyrinbyliu.applinzi.com/img/setting.png", content: "设置" }
+      ]
     };
+  },
+  methods: {
+    //子传父 底部是否显示
+    bottomIsShow() {
+      this.$emit("bottomIsShow", this.bottomShow);
+    },
+    //子传父 顶部是否显示
+    isShow() {
+      this.$emit("isShow", this.bool);
+    }
+  },
+  created() {
+    this.bottomIsShow();
+    this.isShow();
   }
 };
 </script>
 <style scoped>
 * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   padding: 0;
   margin: 0;
 }
+.items{
+  margin-top: 15px;
+}
+.link-top {
+  width: 92%;
+  height: 1px;
+  border: 1px solid #cccccc;
+  margin-left: 5%;
+}
+.userAction-item {
+  display: flex;
+  /* justify-content: space-between */
+  align-items: center;
+  /* border-bottom: 1px solid #bbb9b9; */
+}
+.userAction-item .item-pic img {
+  margin-left: 20px;
+  width: 32px;
+}
+.userAction-item .item-content p {
+  font-size: 18px;
+  color: #000;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+.userAction-item .item-to {
+  margin-left: 60%;
+  margin-top: 4px;
+  width: 20px;
+}
 
-.arrow::after {
-  content: "";
-  width: 15rpx;
-  height: 15rpx;
-  border-top: 10rpx solid rgb(134, 72, 72);
-  border-right:10rpx solid rgb(167, 36, 36);
-  transform: rotate(45deg);
+.userAction {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.userAction .userAction-li p {
+  display: inline;
 }
 
 .user .top {
@@ -55,33 +127,47 @@ export default {
   margin-right: 15px;
 }
 .user {
-  height: 100%;
   background-color: #fff;
+  /* margin-top: 40px; */
 }
 .userInfo {
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: 150px;
   align-items: center;
-  box-shadow: 5px 5px 5px #8c8c8c;
-  /* justify-content: space-between */
+  box-shadow: 4px 5px 5px #8c8c8c;
+  justify-content: space-between;
 }
 .user .userInfo .userInfo-Left img {
-  width: 50px;
+  width: 55px;
   border-radius: 5px;
 }
-.userInfo-Top p {
-  font-size: 20px;
-  color: #000000;
-  font-weight: bold;
+.userInfo-Left {
+  margin-left: 20px;
 }
-.userInfo-Buttom {
-  align-items: center;
-  justify-content: space-around;
+.userInfo-Middle {
+  height: 55px;
+}
+.user-name p {
+  font-size: 22px;
+  color: #000;
+}
+.wechat p {
+  margin-top: 10px;
+  font-size: 15px;
+}
 
+.userInfo-Right {
+  margin-top: 33px;
 }
-.userInfo-Buttom span {
-  color: #524e4e;
+.userInfo-Right img:first-child {
+  width: 16px;
+  margin-right: 20px;
+}
+.userInfo-Right img:last-child {
+  width: 15px;
+  margin-right: 10px;
 }
 .userAction {
   display: flex;

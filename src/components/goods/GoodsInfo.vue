@@ -77,6 +77,10 @@ export default {
     },
     addCart() {
       //参数 uid = 1 pid count price
+      if(sessionStorage['loginInfo']==null){
+        Toast('请登录');
+        this.$router.replace('/Login')
+      }else{
       var pid = this.id,
         count = this.val,
         price = 9.9,
@@ -101,6 +105,7 @@ export default {
       });
       //获取返回结果
       //显示提示信息
+    }
     }
   },
   created() {

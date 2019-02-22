@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list">
-    <div class="goods-item" v-for="l in list">
+    <div class="goods-item" v-for="(l,index) in list" :key="index">
       <img :src="l.img_url" @click="jumpDetails" :data-id="l.id">
       <h3 class="title">{{l.name}}</h3>
       <div class="goods-info">

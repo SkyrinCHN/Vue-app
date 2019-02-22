@@ -26,24 +26,16 @@ export default new Router({
     {path:"/Logout",component:Logout},
     {path:"/ShopList",component:ShopList},
     {path:"/Login",component:Login},
-    { path: '/', redirect: "/start" },
+    { path: '/', component: Start },
     { path: "/home", component: Home },
     { path: "/NewsList", component: NewsList },
     { path: "/test01", component: test01 },
     { path: "/test02/:age", component: test02 },
-    { path: "/NewsInfo", component: NewsInfo,meta:{
-      requireLogin:true
-    } },
-    { path: "/GoodsList", component: GoodsList ,meta:{
-      requireLogin:true
-    }},
-    { path: "/GoodsInfo/:id", component: GoodsInfo,meta:{
-      requireLogin:true
-    } },
+    { path: "/NewsInfo", component: NewsInfo},
+    { path: "/GoodsList", component: GoodsList },
+    { path: "/GoodsInfo/:id", component: GoodsInfo },
     { path: "/Register", component: Register },
-    {path:"/User",component:User,meta:{
-      requireLogin:true
-    }},
+    {path:"/User",component:User,meta:{requireLogin:true}},
     {path:'/start',component:Start}
   ]
 })

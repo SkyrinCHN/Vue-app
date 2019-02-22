@@ -14,7 +14,7 @@
     <mt-button size="large" type="primary" @click="addComment">提交</mt-button>
     <hr>
     <div class="cmt-list">
-      <div class="ctm-item" v-for="(l,i) in list">
+      <div class="ctm-item" v-for="(l,index) in list" :key="index">
         第{{i+1}}楼:发表时间{{l.ctime|datetimeFilter}}
         <div class="ctm-body">{{l.content}}</div>
         <hr>
@@ -59,6 +59,10 @@ export default {
       });
     },
     addComment() {
+      if(sessionStorage['loginInfo']==null){
+        Toast('请登录')
+        this.$router.replace('/Login')
+      }else{
       //获取新闻编号 评论内容
       var content = this.msg;
       var nid = this.id;
@@ -82,6 +86,7 @@ export default {
       } else {
         Toast("好歹整两句嘛");
       }
+    }
     }
   }
 };

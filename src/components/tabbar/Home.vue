@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- 第一个头部 被剪到根组件去了 -->
+       
     <!-- 第二个: 轮播图 -->
     <swipe-box :list="list" class="swipe"></swipe-box>
     <div id="grid">
@@ -15,48 +16,10 @@
             <div class="mui-media-body">{{item.title}}</div>
             </router-link>
         </li>
-        <!-- <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <router-link to="/NewsList">
-            <img src="../../img/menu1.png">
-            <div class="mui-media-body">新闻资讯</div>
-          </router-link>
-        </li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <router-link to="/GoodsList">
-            <span>
-              <img src="../../img/menu2.png">
-            </span>
-            <div class="mui-media-body">买买买</div>
-          </router-link>
-        </li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <router-link to="/ShopList">
-            <img src="../../img/menu3.png">
-            <div class="mui-media-body">购物车</div>
-          </router-link>
-        </li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <a href="javascript:;">
-            <img src="../../img/menu4.png">
-            <div class="mui-media-body">支付</div>
-          </a>
-        </li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <a href="javascript:;">
-            <img src="../../img/menu5.png">
-            <div class="mui-media-body">下单</div>
-          </a>
-        </li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-          <a href="javascript:;">
-            <img src="../../img/menu6.png">
-            <div class="mui-media-body">更多</div>
-          </a>
-        </li> -->
       </ul>
     </div>
     <!-- 新闻轮播 -->
-    <div class="textScroll" @mousemove="pauseAn" @mouseout="startAn">
+    <!-- <div class="textScroll" @mousemove="pauseAn" @mouseout="startAn">
       <div class="scroll" :style="{marginLeft: '-' + marginLeft + 'px' }">
         <span
           @click="itemClick(item,$event)"
@@ -68,8 +31,7 @@
           <span class="text">{{item.content}}</span>
         </span>
       </div>
-    </div>
-    <mt-
+    </div> -->
   </div>
 </template>
 <script>
@@ -107,31 +69,35 @@ export default {
         console.log(result.data.data);
       })
     },
-    startAn: function() {
-      // 开始
-      let _this = this;
-      let width = document.querySelector(".scroll").offsetWidth;
-      this.an = setInterval(function() {
-        if (_this.marginLeft > width) {
-          _this.marginLeft = 0;
-        }
-        _this.marginLeft += 2;
-      }, _this.time);
+    bottomIsShow(){
+      this.$emit("bottomIsShow",this.bottomShow)
     },
-    stopAn: function() {
-      // 停止
-      this.prevLeft = this.marginLeft;
-      this.marginLeft = 0;
-      clearInterval(this.an);
-      this.$emit("on-stop-An");
-    },
-    pauseAn: function() {
-      // 暂停动画
-      clearInterval(this.an);
-    },
-    itemClick: function(item, e) {
-      this.$emit("on-item-click", item);
-    },
+    // },
+    // startAn: function() {
+    //   // 开始
+    //   let _this = this;
+    //   let width = document.querySelector(".scroll").offsetWidth;
+    //   this.an = setInterval(function() {
+    //     if (_this.marginLeft > width) {
+    //       _this.marginLeft = 0;
+    //     }
+    //     _this.marginLeft += 2;
+    //   }, _this.time);
+    // },
+    // stopAn: function() {
+    //   // 停止
+    //   this.prevLeft = this.marginLeft;
+    //   this.marginLeft = 0;
+    //   clearInterval(this.an);
+    //   this.$emit("on-stop-An");
+    // },
+    // pauseAn: function() {
+    //   // 暂停动画
+    //   clearInterval(this.an);
+    // },
+    // itemClick: function(item, e) {
+    //   this.$emit("on-item-click", item);
+    // },
   },
   created() {
     //当组件对象创建成功后,就开始发送ajax请求
@@ -140,27 +106,28 @@ export default {
     this.getNavinfo();
     this.leftIsShow();
     this.getNews();
-    switch (
-      this.placement /** 此功能可自己扩展，展示方式，此代码中未完成扩展 **/
-    ) {
-      case "top":
-        this.place = "top";
-        break;
-      case "bottom":
-        this.place = "bottom";
-        break;
-      default:
-        this.place = "bottom";
-        break;
-    }
+    this.bottomIsShow();
+    // switch (
+    //   this.placement 
+    // ) {
+    //   case "top":
+    //     this.place = "top";
+    //     break;
+    //   case "bottom":
+    //     this.place = "bottom";
+    //     break;
+    //   default:
+    //     this.place = "bottom";
+    //     break;
+    // }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.startAn();
-    });
+    // this.$nextTick(function() {
+    //   this.startAn();
+    // });
   },
   beforeDestroy() {
-    this.stopAn();
+    // this.stopAn();
   },
   data() {
     return {
@@ -173,7 +140,8 @@ export default {
       prevLeft: 0,
       an: "",
       place: "",
-      id:1
+      id:1,
+      bottomShow:true
     };
   },
   props: {
@@ -193,7 +161,7 @@ export default {
 };
 </script>
 <style>
-.textScroll{
+/* .textScroll{
     background-color: #f7f7f7;
     border-bottom: 1px solid #CCC;
     width: 100%;
@@ -215,7 +183,7 @@ export default {
     }
   .text {
         color: #161514;
-  }
+  } */
 .swipe {
   width: 100%;
   height: 130px;

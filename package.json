@@ -1,5 +1,5 @@
 {
-  "name": "xz_admin_v2",
+  "name": "VueApp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,7 +17,10 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.5",
     "@vue/cli-service": "^3.0.0-rc.5",
-    "vue-template-compiler": "^2.5.16"
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.16",
+    "vue-wechat-title": "^2.0.5"
   },
   "postcss": {
     "plugins": {

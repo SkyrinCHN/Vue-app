@@ -2,7 +2,7 @@
   <div class="app-container" :class="[show[0]!=true?'top':'app-container']">
     <!-- top -->
     <!-- 第一个: 顶部状态栏 小刘商店 -->
-    <mt-header title="小刘商店" fixed v-if="show[0]">
+    <mt-header title="Skyrin Store" class="store-title" fixed v-if="show[0]">
       <router-link to="/home" slot="left" v-if="left[0]">
         <mt-button icon="back"></mt-button>
         <!-- <mt-button @click="handleClose">关闭</mt-button> -->
@@ -16,7 +16,7 @@
     <!-- tabbar -->
     <div id="tabbar" v-if="bottomShow[0]">
       <nav class="mui-bar mui-bar-tab" >
-        <router-link  class="mui-tab-item "  :to="item.naviTo" v-for="(item,index) in list" @click="getClass(index)" :class="{'mui-active':index==number}"
+        <router-link  class="mui-tab-item "  :to="item.naviTo" v-for="(item,index) in list" :key="index" @click="getClass(index)" :class="{'mui-active':index==number}"
         >
           <span :class="item.span1" ></span>
           <span :class="item.span2">{{item.name}}</span>
@@ -34,7 +34,7 @@ export default {
       left: [],
       list:[
         {span1:'mui-icon mui-icon-home',span2:'mui-tab-label',name:'首页',naviTo:'/home',routerClass:'mui-tab-item'},
-        {span1:'mui-icon mui-icon-contact',span2:'mui-tab-label',name:'会员中心',naviTo:'/Login',routerClass:'mui-tab-item'},
+        {span1:'mui-icon mui-icon-contact',span2:'mui-tab-label',name:'会员中心',naviTo:'/user',routerClass:'mui-tab-item'},
         {span1:'mui-icon mui-icon-extra mui-icon-extra-cart',span2:'mui-tab-label',name:'购物车',naviTo:'/Cart',routerClass:'mui-tab-item'},
         {span1:'mui-icon mui-icon-search',span2:'mui-tab-label',name:'搜索',naviTo:'',routerClass:'mui-tab-item'},
       ],
