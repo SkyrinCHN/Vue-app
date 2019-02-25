@@ -200,8 +200,5 @@ export default {
 #grid>ul>li{
   border: 0;
 }
-header{
-  border-radius: 3px;
-}
 </style>
 

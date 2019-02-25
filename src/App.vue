@@ -9,6 +9,7 @@
       </router-link>
       <!-- <mt-button icon="more" slot="right"></mt-button> -->
     </mt-header>
+   
     <router-view v-on:isShow="listenMySon" v-on:leftIsShow="leftShow" v-on:bottomIsShow="listenBottom"></router-view>
 
     
@@ -16,10 +17,11 @@
     <!-- tabbar -->
     <div id="tabbar" v-if="bottomShow[0]">
       <nav class="mui-bar mui-bar-tab" >
-        <router-link  class="mui-tab-item "  :to="item.naviTo" v-for="(item,index) in list" :key="index" @click="getClass(index)" :class="{'mui-active':index==number}"
-        >
+        <router-link  class="mui-tab-item " :to="item.naviTo" v-for="(item,index) in list" :key="index"  :class="{'mui-active':index==number}">
+          <div @click="getClass(index)">
           <span :class="item.span1" ></span>
           <span :class="item.span2">{{item.name}}</span>
+          </div>
         </router-link>
       </nav>
     </div>
@@ -45,7 +47,11 @@ export default {
   
 
   methods: {
+    gogo(){
+      this.$router.go(-1)
+    },
     getClass(index){
+      console.log(index)
       this.number=index
     },
     backTo(){
@@ -81,7 +87,7 @@ export default {
   height: 100%;
   z-index: 10
 }
- .mui-active {
+ .mui-bar-tab .mui-tab-item .mui-active {
   color: #2676ff;
 }
 .mui-bar-tab .mui-tab-item-tao {
