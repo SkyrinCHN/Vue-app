@@ -5,7 +5,7 @@ import 'mint-ui/lib/style.css'
 //引入vuex
 import Vuex from "vuex"
 Vue.config.productionTip = false
-
+//引入jquery
 //引入vue-wechat-title
 import VueWechatTitle from 'vue-wechat-title'
 Vue.use(VueWechatTitle)

@@ -126,6 +126,7 @@ export default {
         // console.log(result.data.code);
         if (result.data.code > 0) {
           Toast(result.data.msg);
+          this.$router.replace('/Home')
         }
         if (result.data.code < 0) {
           Toast(result.data.msg);

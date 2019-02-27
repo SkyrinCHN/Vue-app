@@ -1,42 +1,9 @@
-
-  <!-- <div class="goods-info">
-    <swipe-box :list="list"></swipe-box>
-    <div class="link"></div>
-  </div> -->
-    <!-- <div class="price">
-      <p class="new-price">¥{{info.price*.88}}</p>
-      <p class="old-price">¥{{info.price}}</p> -->
-    <!-- <div class="mui-card">
-      <div class="mui-card-header">{{info.name}}</div>
-      <div class="mui-card-content">
-        <div class="mui-card-inner">
-          <div class="price">
-            <p>
-              市场价:
-              <del>¥{{info.price}}</del>
-            </p>
-            <p>
-              优惠价:
-              <span>¥{{info.price*.88}}</span>
-              <span class="cheap">Just Today</span>
-            </p>
-          </div>
-          <div class="mui-numbox" data-numbox-min="1" data-numbox-max="9">
-            <button class="mui-btn mui-btn-numbox-minus" type="button" @click="less">-</button>
-            <input id="test" class="mui-input-numbox" type="number" v-model="val">
-            <button class="mui-btn mui-btn-numbox-plus" type="button" @click="more">+</button>
-          </div>
-        </div>
-      </div>
-      <div class="mui-card-footer">
-        <button class="buy">立即购买</button>
-        <button class="in-cart" @click="addCart" >加入购物车</button>
-      </div>
-    </div> -->
 <template>
   <div class="goods">
-    <swipe-box :list="list"></swipe-box>
-    <div class="link"></div>
+    <!-- <swipe-box :list="list"></swipe-box> -->
+    <div class="goods-pic">
+        <img :src="info.img_url" class="bgPic">
+    </div>
     <div class="goods-info">
       <div class="price">
         <p class="now-price">¥{{info.price*.88}}</p>
@@ -45,6 +12,13 @@
       </div>
       <div class="goods-name">
         <p>{{info.name}}</p>
+        <div class="more-info">
+          <span>全国包邮</span>
+          <span>新品上市</span>
+          <span>货到付款</span>
+          <span>退换无忧</span>
+          <span>品质保证</span>
+        </div>
         <div class="goods-tab">
           <span>快递:0.00</span>
           <span>月售:220</span>
@@ -168,6 +142,38 @@ export default {
 };
 </script>
 <style scoped>
+.more-info{
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.more-info span{
+    color:#d81e06;
+    padding: 5px 0 0;
+    line-height: 1.3;
+    position: relative;
+    font-size: 12px;
+    max-height: 46px;
+    overflow: hidden;
+    margin-right: 5px;
+}
+.goods-name p{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  margin-left: 10px;
+  color: #000;
+  text-align: start;
+}
+.goods-pic{
+  /* margin-bottom: 0; */
+  height: 375px;
+}
+.bgPic{
+  width: 100%;
+}
+.goods-info{
+  margin-top: 0;
+}
 *{
   padding: 0;
   margin: 0;
@@ -201,6 +207,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background:#fff;
 }
 .tab-item p{
   font-size: 10px;
@@ -232,11 +239,6 @@ export default {
 .goods-name{
   margin-top: 10px;
 }
-.goods-name p{
-  margin-left: 10px;
-  color: #000;
-  font-size: 20px;
-}
 .price{
   /* margin-top: 5px; */
   /* background: linear-gradient(left,#006699,#fff) */
@@ -262,42 +264,4 @@ export default {
 .goods{
   background: #fff;
 }
-.link{
-  border-bottom: 1px solid #dbd9d9;
-  margin-top: 5px;
-}
-/* .price{
-  background: linear-gradient(left,#d81e07,rgb(212, 35, 189));
-  height: 50px;
-}
-.price .new-price{
-  color: #fff;
-  font-size: 20px;
-} */
-/* .mui-card-footer button {
-  border: 1px solid #e83632;
-  color:#e83632;
-  background: #fff;
-  border-radius: 4px;
-  width: 159px;
-  height: 40px;
-}
-.mui-card-footer button:hover{
-  background: #e83632;
-  color: #fff;
-}
-.mui-card-footer .in-cart {
-  background: #fff;
-  color:#26a2ff;
-  border: 1px solid #26a2ff;
-}
-.goods-info .mui-card-inner .price span{
-  color: #e83632;
-  font-size: 20px;
-}
-.goods-info .mui-card-inner .price span.cheap{
-  margin-left: 80px;
-  font-size: 30px;
-  font-family:Hurricane;
-} */
 </style>

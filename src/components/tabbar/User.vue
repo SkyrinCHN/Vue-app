@@ -36,9 +36,13 @@
         <div class="link-top"></div>
       </div>
     </div>
+    <div class="login-out">
+      <button class="to-out" @click="loginOut">退出登录</button>
+    </div>
   </div>
 </template>
 <script>
+import {Toast} from 'mint-ui'
 export default {
   data() {
     return {
@@ -61,6 +65,13 @@ export default {
     };
   },
   methods: {
+    loginOut(){
+      sessionStorage.clear();
+      if(sessionStorage['loginInfo']==null){
+        Toast('退出登录')
+        this.$router.push('/home')
+      }
+    },
     //子传父 底部是否显示
     bottomIsShow() {
       this.$emit("bottomIsShow", this.bottomShow);
@@ -82,11 +93,22 @@ export default {
   padding: 0;
   margin: 0;
 }
+.login-out{
+  margin-top: 0;
+  text-align: center;
+  margin-top: 20px;
+}
+.login-out button{
+  width: 80%;
+  height: 45px;
+  background: #d81e07;
+  color: #fff;
+}
 .items{
   margin-top: 15px;
 }
 .link-top {
-  width: 92%;
+  width: 88%;
   height: 1px;
   border: 1px solid #cccccc;
   margin-left: 5%;
@@ -117,6 +139,7 @@ export default {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
+  /* margin-bottom: 0; */
 }
 .userAction .userAction-li p {
   display: inline;
@@ -171,7 +194,7 @@ export default {
 }
 .userAction {
   display: flex;
-  height: 400px;
+  /* height: 400px; */
 }
 </style>
 

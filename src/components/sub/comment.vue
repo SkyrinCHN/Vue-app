@@ -15,7 +15,7 @@
     <hr>
     <div class="cmt-list">
       <div class="ctm-item" v-for="(l,index) in list" :key="index">
-        第{{i+1}}楼:发表时间{{l.ctime|datetimeFilter}}
+        第{{index+1}}楼:发表时间{{l.ctime|datetimeFilter}}
         <div class="ctm-body">{{l.content}}</div>
         <hr>
       </div>

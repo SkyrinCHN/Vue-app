@@ -58,8 +58,8 @@ import { Toast } from "mint-ui";
 export default {
   data() {
     return {
-      name: "admin",
-      pwd: "123456",
+      name: "",
+      pwd: "",
       bool: false,
       userName: "",
       logo_url:"http://skyrinbyliu.applinzi.com/img/logo.png",

@@ -1,43 +1,59 @@
 <template>
-  <div>
+  <div class="home">
     <!-- 第一个头部 被剪到根组件去了 -->
-       
     <!-- 第二个: 轮播图 -->
     <swipe-box :list="list" class="swipe"></swipe-box>
+    <!-- 导航布局 -->
     <div id="grid">
-      <ul class="mui-table-view mui-grid-view mui-grid-9">
-        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" v-for="item in navList " :key="item.id">
+      <ul class="nav-info">
+        <li class="nav-item"
+          v-for="item in navList "
+          :key="item.id"
+        >
           <!-- <router-link :to="/NewsList">
             <img :src="item.img_url">
             <div class="mui-media-body">{{item.title}}</div>
-          </router-link> -->
-            <router-link :to="item.url">
+          </router-link>-->
+          <router-link :to="item.url">
             <img :src="item.img_url">
-            <div class="mui-media-body">{{item.title}}</div>
-            </router-link>
+            <p class="mui-media-body">{{item.title}}</p>
+          </router-link>
         </li>
       </ul>
     </div>
-    <!-- 新闻轮播 -->
-    <!-- <div class="textScroll" @mousemove="pauseAn" @mouseout="startAn">
-      <div class="scroll" :style="{marginLeft: '-' + marginLeft + 'px' }">
-        <span
-          @click="itemClick(item,$event)"
-          v-for="(item,index) in datas"
-          :key="index"
-          class="content"
-        >
-          <span class="title">【特推公告：{{item.title}}】</span>
-          <span class="text">{{item.content}}</span>
-        </span>
+    <!-- 分割线 -->
+    <!-- <div class="link"></div> -->
+    <div class="section1">
+      <!-- <img src="http://localhost:5050/img/section3.png" > -->
+      <img src="http://skyrinbyliu.applinzi.com/img/section3.png" >
+      <div class="section1-main">
+        <div class="section1-info" v-for="(item,index) in sectionList" :key="index">
+          <p class="info-title">{{item.title}}</p>
+          <p class="info-detail">{{item.detail}}</p>
+          <div class="info-img">
+            <img :src="item.img1_url">
+            <img :src="item.img2_url">
+          </div>
+        </div>
       </div>
-    </div> -->
+    </div>
+    <div class="section2">
+      <!-- <img src="http://localhost:5050/img/section1.png"> -->
+      <img src="http://skyrinbyliu.applinzi.com/img/section1.png" >
+      <div class="section2-main">
+        <div class="section2-info" v-for="(item,index) in section2List" :key="index">
+         <p :style="item.style">{{item.title}}</p>
+         <p class="info-detail">{{item.detail}}</p>
+         <img :src="item.img_url" >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import swipe from "../sub/swipe"
+import { Swipe, SwipeItem } from "mint-ui";
+import swipe from "../sub/swipe";
 export default {
-  
   methods: {
     getImages() {
       //获取轮播图片 1. 发送ajax请求   2.获取返回数据 保存到pics
@@ -49,55 +65,43 @@ export default {
         this.list = result.data;
       });
     },
-    getNavinfo(){
+    getSectionList(){
+      var url ='http://skyrinbyliu.applinzi.com/getSectionList';
+      // var url = 'http://localhost:5050/getSectionList'
+      this.axios.get(url).then(result=>{
+        this.sectionList=result.data;
+      })
+    },
+     getSection2List(){
+      var url ='http://skyrinbyliu.applinzi.com/getSection2List';
+      // var url = 'http://localhost:5050/getSection2List'
+      this.axios.get(url).then(result=>{
+        this.section2List=result.data;
+      })
+    },
+    getNavinfo() {
       var url = "http://skyrinbyliu.applinzi.com/getNavInfo";
-      this.axios.get(url).then(result=>{
+      this.axios.get(url).then(result => {
         this.navList = result.data;
-      })
+      });
     },
-    isShow(){
-      this.$emit('isShow',this.bool);
+    isShow() {
+      this.$emit("isShow", this.bool);
     },
-    leftIsShow(){
-      this.$emit('leftIsShow',this.left);
+    leftIsShow() {
+      this.$emit("leftIsShow", this.left);
     },
-    getNews(){
+    getNews() {
       var id = this.id;
-      var url = "http://skyrinbyliu.applinzi.com/getNewsList?id="+id;
-      this.axios.get(url).then(result=>{
-        this.datas=result.data.data;
+      var url = "http://skyrinbyliu.applinzi.com/getNewsList?id=" + id;
+      this.axios.get(url).then(result => {
+        this.datas = result.data.data;
         console.log(result.data.data);
-      })
+      });
     },
-    bottomIsShow(){
-      this.$emit("bottomIsShow",this.bottomShow)
-    },
-    // },
-    // startAn: function() {
-    //   // 开始
-    //   let _this = this;
-    //   let width = document.querySelector(".scroll").offsetWidth;
-    //   this.an = setInterval(function() {
-    //     if (_this.marginLeft > width) {
-    //       _this.marginLeft = 0;
-    //     }
-    //     _this.marginLeft += 2;
-    //   }, _this.time);
-    // },
-    // stopAn: function() {
-    //   // 停止
-    //   this.prevLeft = this.marginLeft;
-    //   this.marginLeft = 0;
-    //   clearInterval(this.an);
-    //   this.$emit("on-stop-An");
-    // },
-    // pauseAn: function() {
-    //   // 暂停动画
-    //   clearInterval(this.an);
-    // },
-    // itemClick: function(item, e) {
-    //   this.$emit("on-item-click", item);
-    // },
+    bottomIsShow() {
+      this.$emit("bottomIsShow", this.bottomShow);
+    }
   },
   created() {
     //当组件对象创建成功后,就开始发送ajax请求
@@ -107,83 +111,140 @@ export default {
     this.leftIsShow();
     this.getNews();
     this.bottomIsShow();
-    // switch (
-    //   this.placement 
-    // ) {
-    //   case "top":
-    //     this.place = "top";
-    //     break;
-    //   case "bottom":
-    //     this.place = "bottom";
-    //     break;
-    //   default:
-    //     this.place = "bottom";
-    //     break;
-    // }
+    this.getSectionList();
+    this.getSection2List();
   },
-  mounted() {
-    // this.$nextTick(function() {
-    //   this.startAn();
-    // });
-  },
-  beforeDestroy() {
-    // this.stopAn();
-  },
+  mounted() {},
+  beforeDestroy() {},
   data() {
     return {
-      list:[],
-      bool:true, //头部是否显示 子传父 组件通信
-      navList:[],
-      left:false,//头部返回按钮 home页面显示
-      datas:[],
+      list: [],
+      bool: true, //头部是否显示 子传父 组件通信
+      navList: [],
+      left: false, //头部返回按钮 home页面显示
+      datas: [],
       marginLeft: 0,
       prevLeft: 0,
       an: "",
       place: "",
-      id:1,
-      bottomShow:true
+      id: 1,
+      bottomShow: true,
+      sectionList:[],
+      section2List:[],
     };
   },
-  props: {
-    data: {
-      type: Array
-    },
-    time: {
-      type: Number,
-      default: 100
-    },
-    placement: {
-      type: String,
-      default: "bottom"
-    }
-  },
-  components:{"swipe-box":swipe},
+  props: {},
+  components: { "swipe-box": swipe }
 };
 </script>
 <style>
-/* .textScroll{
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #CCC;
-    width: 100%;
+.section2-main{
+  display: flex;
+  flex-wrap: wrap;
 }
-.scroll{
-    height: 32px;
-    line-height: 28px;
-    padding: 4px 0;
-    white-space: nowrap;
+.section2-info{
+  /* border: 1px solid #d81d06; */
+  text-align: center;
+  width: 25%;
 }
-  .scroll.content{
-        width: 100%;
-        word-wrap: normal;
-        margin-right: 100px;
-    }
-  .title{
-        color: #eb0606;
-        font-weight: bold;
-    }
-  .text {
-        color: #161514;
-  } */
+.section2-info img{
+  width: 100%;
+}
+.section2>img{
+  width: 100%;
+}
+.section2{
+  background: #fff;
+}
+*{
+  padding: 0;
+  margin: 0;
+}
+.info-img{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+.info-img img{
+  width: 49%;
+  height: 49%;
+}
+.info-title{
+  color: #d81d06;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.info-detail{
+  color: #5f5d5d;
+  font-size: 10px;
+  margin-bottom: 0;
+}
+.section1{
+  background: #fff;
+}
+.section1>img{
+  width: 100%;
+}
+.section1-info{
+  /* border:  1px solid #d81d06; */
+  width: 50%;
+  padding-top: 10px;
+  /* margin-bottom: 10px; */
+  border:  1px solid #ecebeb;
+}
+.section1-main{
+  width: 95%;
+  /* border: 1px solid #d81d06; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left: 2.5%;
+}
+.section1-name{
+  width: 100%;
+  /* border: 1px solid #d81d06; */
+  text-align: center;
+  color: #d81d06;
+  font-size: 18px;
+  height: 30px;
+  background: #e0dfdf;
+  /* border-radius: 5px; */
+  line-height: 30px;
+}
+.home-middle{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.swipe-info {
+  height: 200px;
+  width: 49%;
+  border: 1px solid #d81d06;
+}
+
+.link {
+  border-bottom: 1px solid #d3d1d1;
+  width: 90%;
+  margin-top: 10px;
+  margin-left: 5%;
+}
+/* .home {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+} */
+.news .news-title {
+  height: 22px;
+  overflow: hidden;
+  line-height: 22px;
+}
+.news {
+  display: flex;
+}
+.news .news-title {
+  color: #d81d06;
+}
 .swipe {
   width: 100%;
   height: 130px;
@@ -191,14 +252,33 @@ export default {
 .swipe img {
   width: 100%;
 }
+/* #grid{
+  border-radius:   4px;
+  border: 1px solid #d81d06;
+} */
 #grid ul li img {
-  width: 60px;
+  width: 50px;
 }
-#grid>ul{
+
+#grid > ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: space-between;
   background: #fff;
 }
-#grid>ul>li{
+#grid > ul > li {
+  text-align: center;
+  width: 25%;
   border: 0;
+  height: 100px;
+  margin-top: 10px;
+}
+/* #grid{
+  padding-top: 10px;
+} */
+#grid > ul > li p {
+  font-size: 14px;
 }
 </style>
 
